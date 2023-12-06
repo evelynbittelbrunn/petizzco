@@ -1,0 +1,35 @@
+.container-login {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FEDBC8;
+}
+
+.card-login {
+    background-color: #FCA378;
+    width: 400px;
+    box-sizing: border-box;
+    padding: 40px;
+    border-radius: 30px;
+    border: 10px solid #FFF0C5;
+}
+
+.login-avatar {
+    display: block !important;
+    margin: 0 auto;
+    background-color: #FFF0C5 !important;
+    border: none;
+}
+
+.submit-button-login {
+    display: block;
+    margin: 0 auto;
+    background-color: #FFF0C5;
+    color: #F8A076;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+}

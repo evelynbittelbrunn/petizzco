@@ -1,0 +1,138 @@
+body {
+    margin: 0;
+    /* background-color: #F88449; */
+    background: linear-gradient(45deg, #f7c40a, #f7980a, #f76014, #f75a0a);
+    /* background-size: 300%, 300%; */
+    background-size: 300%, 300%;
+    height: 100vh;
+    animation: colors 4s ease infinite;
+}
+
+@keyframes colors {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 50% 100%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.container {
+    max-width: 670px;
+    margin: 0 auto;
+    padding: 120px 60px 60px;
+    border-radius: 30px;
+    position: relative;
+}
+
+#nav {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    z-index: 10;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 100px;
+}
+
+#nav img {
+    height: 35px;
+}
+
+#nav svg {
+    color: #989898;
+}
+
+.card-info {
+    background: rgba( 255, 255, 255, 0.35 );
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    text-align: center;
+    border-radius: 30px;
+    padding: 50px;
+    border: .5px solid #fcdbca;
+}
+
+.card-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-content {
+    width: calc(100% - 200px);
+    display: block;
+}
+
+.profile-avatar {
+    border: 12px solid #FCDDCA;
+}
+
+.kitty-info {
+    margin-bottom: 10px;
+}
+
+.kitty-info .css-dev-only-do-not-override-6j9yrn {
+    display: block !important;
+    text-align: start;
+    margin-bottom: 2px;
+}
+
+.kitty-info .numeric-input-info {
+    display: flex;
+    align-items: start;
+}
+
+.submit-button-profile {
+    margin-top: 23px !important;
+    background-color: #FFF0C5;
+    color: #F8A076;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+}
+
+.submit-button-profile span {
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.kitty-info .numeric-input-info .css-dev-only-do-not-override-6j9yrn { 
+    width: 120px;
+    margin-right: 5px;
+}
+
+.kitty-info .css-dev-only-do-not-override-6j9yrn input {
+    background-color: #FFFCF5;
+}
+
+.kitty-info .ant-form-item-required::before {
+    display: none !important;
+}
+
+.schedules-info label {
+    display: block;
+    text-align: start;
+    border-bottom: 1px solid #FFFCF5;
+    margin-bottom: 10px;
+    color: white;
+    padding-bottom: 5px;
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+    font-weight: 500;
+}
+
+.schedules-input-info {
+    display: flex;
+    justify-content: space-between;
+}

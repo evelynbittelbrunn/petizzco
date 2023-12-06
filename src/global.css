@@ -1,0 +1,8 @@
+.ant-form-item-required {
+    color: white !important;
+    height: 13px !important;
+}
+
+.ant-form-item-label {
+    padding: 0 !important;
+}
