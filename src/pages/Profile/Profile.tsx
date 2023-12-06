@@ -6,22 +6,42 @@ import NumericInput from "../../components/NumericInput/NumericInput";
 import axios from 'axios';
 import moment from 'moment';
 import "./Profile.css"
+import CatFeederPrediction from "./Prediction";
+
+interface OriginalRecord {
+    id: number;
+    dateTime: string;
+    grams: number;
+}
+
+interface DailyTotal {
+    firstGrams: number;
+    lastGrams: number;
+}
+
+interface ResultRecord {
+    day: number;
+    consumedFood: number;
+}
 
 export default function Profile() {
     const format = 'h:mm A';
     const [age, setAge] = useState('');
     const [weight, setWeight] = useState('');
     const [schedules, setSchedules] = useState([]);
+    const [predictionData, setPredictionData] = useState([]);
     const [infoForm] = Form.useForm();
     const [scheduleForm] = Form.useForm();
     const [isFetchingSchedules, setIsFetchingSchedules] = useState(true);
 
+
     const schedule1 = Form.useWatch('schedule1', scheduleForm);
 
-    console.log(schedule1);
+    console.log(predictionData);
 
     useEffect(() => {
-        fetchData();
+        fetchSchedules();
+        fetchCurrentQuantity();
     }, []);
 
     // useEffect(() => {
@@ -36,7 +56,7 @@ export default function Profile() {
     //     });
     // }, [isFetchingSchedules]);
 
-    const fetchData = async () => {
+    const fetchSchedules = async () => {
         try {
             const response = await axios.get('https://betinho-service.onrender.com/scheduledTime/getAll?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.XkioJmy3Ta-mgTotFxqUzZfG4xP73ycm-4kTIxUpM9o');
 
@@ -48,6 +68,26 @@ export default function Profile() {
                     });
                     setSchedules(newFormat);
                     setIsFetchingSchedules(false);
+                } else {
+                    console.error('Dados inválidos no corpo da resposta.');
+                }
+            } else {
+                console.error('Erro ao buscar dados:', response.status, response.statusText);
+            }
+        } catch (erro) {
+            console.error('Erro na requisição:', erro);
+        }
+    };
+
+    const fetchCurrentQuantity = async () => {
+        try {
+            const response = await axios.get('https://betinho-service.onrender.com/currentQuantity');
+
+            if (response.status === 200) {
+                if (response.data) {
+                    const newArray = transformArray(response.data);
+                    console.log(newArray)
+                    setPredictionData(newArray);
                 } else {
                     console.error('Dados inválidos no corpo da resposta.');
                 }
@@ -72,6 +112,30 @@ export default function Profile() {
         console.log(momentTime)
         console.log(dayjs(data[0]));
     }
+
+    function calculateConsumedFood(records: any) {
+        const firstRecord = records[0];
+        const lastRecord = records[records.length - 1];
+        return firstRecord.grams - lastRecord.grams;
+    }
+
+    function transformArray(originalArray: any) {
+        const resultArray: any = [];
+        const groupedByDay = originalArray.reduce((acc: any, record: any) => {
+            const date = record.dateTime.split('T')[0];
+            acc[date] = acc[date] || [];
+            acc[date].push(record);
+            return acc;
+        }, {});
+
+        Object.keys(groupedByDay).forEach((date, index) => {
+            const consumedFood = calculateConsumedFood(groupedByDay[date]);
+            resultArray.push({ day: index + 1, consumedFood });
+        });
+
+        return resultArray;
+    }
+
 
     return (
         <div className="container">
@@ -161,6 +225,7 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
+            <CatFeederPrediction predictionData={predictionData} />
         </div >
     )
 }
